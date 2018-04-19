@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">  
+    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->  
+    <context:component-scan base-package="ssm.douban.controller" />
+    
+    <mvc:annotation-driven />
+    <!-- 静态资源(js、image等)的访问 -->
+    <mvc:default-servlet-handler/>
+    <mvc:default-servlet-handler default-servlet-name="SpringMVC" />
+     
+    <!-- 开启注解，并解决@ResponseBody 的实现类其默认的编码是 iso-8859-1的问题  -->
+    <!-- default StringHttpMessageConverter, solve encoding problem -->
+    <!-- 
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8" />
+                <property name="writeAcceptCharset" value="false" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+     -->
+    
+    <!--采用以下配置支持controller中返回String，否则会当成是视图名称和路劲处理-->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+	    <property name="messageConverters">
+	        <list>
+	            <!-- String结果数据支持，此解析器要放在JSON解析器前 -->
+	            <ref bean="stringHttpMessageConverter"/>
+	            <!-- JSON结果数据支持(使用fastjson) -->
+	            <!-- <ref bean="fastJsonHttpMessageConverter"/>  -->
+	            <!-- JSON结果数据支持(使用jackson) -->
+	            <ref bean="mappingJackson2HttpMessageConverter" />
+	        </list>
+	    </property>
+	</bean>
+	<!-- String转化器 -->
+	<bean id="stringHttpMessageConverter"
+	      class="org.springframework.http.converter.StringHttpMessageConverter">
+	    <property name="supportedMediaTypes">
+	        <list>
+	            <!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+	            <value>text/html;charset=UTF-8</value>
+	            <value>application/json;charset=UTF-8</value>
+	        </list>
+	    </property>
+	</bean>
+	<!-- JSON转化器(jackson版本) -->
+	<bean id="mappingJackson2HttpMessageConverter"
+	      class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	    <property name="objectMapper">
+	        <!-- <bean class="com.threeStepTech.ObjectMapper.CustomObjectMapper"/> -->
+	        <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+	            <property name="dateFormat">
+	                <bean class="java.text.SimpleDateFormat">
+	                    <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+	                </bean>
+	            </property>
+	            <property name="serializationInclusion">
+	                <!-- 注入枚举类型,过滤对象，这样JSON中不会输出null -->
+	                <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+	            </property>
+	        </bean>
+	    </property>
+	    <property name="supportedMediaTypes">
+	        <list>
+	            <!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+	            <value>text/html;charset=UTF-8</value>
+	            <value>application/json;charset=UTF-8</value>
+	        </list>
+	    </property>
+	</bean>
+    
+	<!-- JSON转化器(fastjson版本) -->
+	<bean id="fastJsonHttpMessageConverter"
+	      class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
+	    <property name="supportedMediaTypes">
+	        <list>
+	            <!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+	            <value>text/html;charset=UTF-8</value>
+	            <value>application/json;charset=UTF-8</value>
+	        </list>
+	    </property>
+	    <property name="fastJsonConfig">
+	        <bean class="com.alibaba.fastjson.support.config.FastJsonConfig">
+	            <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"/>
+	            <property name="serializerFeatures">
+	                <array>
+	                    <!--此配置用于将Date类型转化为dateFormat对应的格式-->
+	                    <value>WriteDateUseDateFormat</value>
+	                </array>
+	            </property>
+	        </bean>
+	    </property>
+	</bean>
+    
+    <!-- FreeMark配置也可以单独放一个文件，方便查看和管理-->  
+    <bean id="freemarkerConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
+        <property name="location" value="classpath:freemarker.properties"/>  
+    </bean>  
+    
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>  
+       
+    <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">  
+        <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>  
+        <property name="defaultEncoding" value="UTF-8"/>  
+        <property name="freemarkerSettings" ref="freemarkerConfig"/>  
+        <property name="freemarkerVariables">  
+            <map>  
+                <entry key="xml_escape" value-ref="fmXmlEscape"/>  
+            </map>  
+        </property>  
+    </bean>
+    
+    <!-- 配置FreeMark视图 -->  
+    <bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
+        <property name="contentType" value="text/html;charset=UTF-8"/>        
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>  
+        <property name="suffix" value=".ftl"/>  
+        <property name="cache" value="true"/>  
+        <property name="exposeSessionAttributes" value="true"/>  
+        <property name="exposeRequestAttributes" value="true"/>       
+        <property name="exposeSpringMacroHelpers" value="true"/>  
+        <!-- 在页面中使用${rc.contextPath}就可获得contextPath -->  
+        <property name="requestContextAttribute" value="rc"/>  
+        <property name="order" value="0"/>  
+    </bean>
+    
+    
+    <!-- 定义跳转的文件的前后缀 ，视图模式配置-->  
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+        <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->  
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/jsp/"/>  
+        <property name="suffix" value=".jsp"/>
+    </bean>  
+      
+    <!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->  
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">    
+        <!-- 默认编码 -->  
+        <property name="defaultEncoding" value="utf-8" />    
+        <!-- 文件大小最大值 -->  
+        <property name="maxUploadSize" value="10485760000" />    
+        <!-- 内存中的最大值 -->  
+        <property name="maxInMemorySize" value="40960" />    
+    </bean>   
+  
+</beans>  
+
