@@ -73,6 +73,22 @@
   <welcome-file-list>  
     <welcome-file>/index.jsp</welcome-file>  
   </welcome-file-list> 
+  
+  <!-- 需要访问的资源不存在 -->
+  <error-page>
+     <error-code>404</error-code>
+     <location>/WEB-INF/error/404.jsp</location>
+  </error-page>
+  <!-- 出现异常 -->
+  <error-page>
+     <exception-type>java.lang.Throwable</exception-type>
+     <location>/WEB-INF/error/webExceptionPage.jsp</location>
+  </error-page>
+  <!-- 服务器内部错误 -->
+  <error-page>
+     <error-code>500</error-code>
+     <location>/WEB-INF/error/500.jsp</location>
+  </error-page>
 
 
 </web-app>

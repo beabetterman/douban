@@ -8,5 +8,8 @@
 		<td>${cm.votes_num}</td><td>${cm.comment}</td>
 	</tr>
 </table>
+<div>
+	<%@include file="template.html" %>
+</div>
 </body>
 </html>

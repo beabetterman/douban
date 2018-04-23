@@ -7,6 +7,11 @@
 		<td>${cm.id}</td><td>${cm.user_name}</td><td>${cm.movie_name}</td><td>${cm.rating_desc}</td>
 		<td>${cm.votes_num}</td><td>${cm.comment}</td>
 	</tr>
+	
 </table>
+<div>
+	<img src="../images/shizhijie_small.jpg"/>
+	<%@include file="template.html" %>
+</div>
 </body>
 </html>
