@@ -24,8 +24,10 @@ public class CommentMovieServiceImpl implements ICommentMovieService {
 	}
 
 
-	public List<CommentMovie> getAllCommentMovie() {
+	public List<CommentMovie> getAllCommentMovie(int offset, int rows) {
 		CommentMovieExample queryInstance = new CommentMovieExample();
+		queryInstance.setOrderByClause(" id limit " + offset + "," + rows + " ");
+		//queryInstance.createCriteria();
 		return this.commentMovieDao.selectByExample(queryInstance);
 	}
 

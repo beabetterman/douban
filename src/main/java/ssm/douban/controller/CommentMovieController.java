@@ -38,10 +38,11 @@ public class CommentMovieController {
 	
 	@RequestMapping("/showAllComment")
 	public String showAllComment(HttpServletRequest request,Model model) {
-		
-        List<CommentMovie> commentMovieList = this.commentMoiveService.getAllCommentMovie();
+		int offset = 190;
+		int rows = 20;
+        List<CommentMovie> commentMovieList = this.commentMoiveService.getAllCommentMovie(offset, rows);
         model.addAttribute("commentMovieList", commentMovieList);  
-		
+        System.out.println("showAllComment list size:" + commentMovieList.size());
 		return "comment_list";
 	}
 	
