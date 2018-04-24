@@ -152,12 +152,13 @@
 		<!-- 为所有的异常定义默认的异常处理页面，exceptionMappings未定义的异常使用本默认配置 -->
 		<property name="defaultErrorView" value="error"></property>
 		<!-- 定义异常处理页面用来获取异常信息的变量名，默认名为exception -->
-		<property name="exceptionAttribute" value="ex"></property>
+		<property name="exceptionAttribute" value="exception"></property>
 		<!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常页文件名作为值， 将不同的异常映射到不同的页面上。 -->
 		<property name="exceptionMappings">
 			<props>
-				<prop key="FileNotFoundException">../error/ioexp</prop>
+				<prop key="java.io.IOException">../error/ioexp</prop>
 				<prop key="java.sql.SQLException">../error/sqlexp</prop>
+				<prop key="java.lang.Exception">../error/exp</prop>
 			</props>
 		</property>
 	</bean>

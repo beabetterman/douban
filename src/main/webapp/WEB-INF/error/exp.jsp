@@ -6,21 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Exception on Web Page</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<div>
-		<span>webException.jsp</span>
+		<span>exp.jsp</span>
 	</div>
-	<div>Some exception happened on page side. Please report it. We will back soon.</div>
-	<div>
 	<% Exception ex = (Exception)request.getAttribute("exception"); %>
-	</div>
-	<div>
 	<H2>Exception: <%= ex.getMessage()%></H2>
-	</div>
-	<div>
+	<P/>
 	<% ex.printStackTrace(new java.io.PrintWriter(out)); %>
-	</div>
 </body>
 </html>
