@@ -7,5 +7,5 @@ import ssm.douban.pojo.CommentMovie;
 public interface ICommentMovieService {
 
 	CommentMovie selectById(int id);
-	List<CommentMovie> getAllCommentMovie();
+	List<CommentMovie> getAllCommentMovie(int offset, int rows);
 }
