@@ -1,14 +1,16 @@
 package ssm.douban.dao;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import ssm.douban.pojo.CommentMovie;
 import ssm.douban.pojo.CommentMovieExample;
 
 @Mapper
-public interface ICommentMovieDao {
+public interface ICommentMovieMapper {
     long countByExample(CommentMovieExample example);
 
     int deleteByExample(CommentMovieExample example);

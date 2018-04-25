@@ -3,9 +3,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ssm.douban.dao.ICommentMovieDao;
+import ssm.douban.dao.ICommentMovieMapper;
 import ssm.douban.pojo.CommentMovie;
 import ssm.douban.pojo.CommentMovieExample;
 import ssm.douban.service.ICommentMovieService;
@@ -13,14 +14,14 @@ import ssm.douban.service.ICommentMovieService;
 @Service("commentMoiveService")
 public class CommentMovieServiceImpl implements ICommentMovieService {
 
-	@Resource
-	private ICommentMovieDao commentMovieDao;
+	@Autowired
+	private ICommentMovieMapper commentMovieMapper;
 	
 	
 	public CommentMovie selectById(int id) {
 		// TODO Auto-generated method stub
 		System.out.println("In CommentMovieServiceImpl, selectById");
-		return this.commentMovieDao.selectByPrimaryKey(id);
+		return this.commentMovieMapper.selectByPrimaryKey(id);
 	}
 
 
@@ -28,7 +29,7 @@ public class CommentMovieServiceImpl implements ICommentMovieService {
 		CommentMovieExample queryInstance = new CommentMovieExample();
 		queryInstance.setOrderByClause(" id limit " + offset + "," + rows + " ");
 		//queryInstance.createCriteria();
-		return this.commentMovieDao.selectByExample(queryInstance);
+		return this.commentMovieMapper.selectByExample(queryInstance);
 	}
 
 }
