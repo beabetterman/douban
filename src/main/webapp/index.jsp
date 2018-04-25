@@ -15,8 +15,8 @@
 
 <div id="rest_get_api">
 	<form action="rest/rest_get_api?infor=123" method="post">
-		<div><span>Name: </span><span><input type="text" name="user_name" value="FakeName"/></div>
-		<div><span>Password: </span><span><input type="text" name="password" value="FakePsd"/></div>
+		<div><span>Name: </span><span><input type="text" name="user_name_fake" value="FakeName"/></div>
+		<div><span>Password: </span><span><input type="text" name="password_fake" value="FakePsd"/></div>
 		<div><input type="submit" value="GET" /></div>
 	</form>
 </div>

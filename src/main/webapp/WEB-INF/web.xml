@@ -5,6 +5,31 @@
 
   <display-name>Archetype Created Web Application</display-name>
 
+
+  <!-- Spring session configuration. Start -->
+  <!-- Should be placed at the head of the file. --> 
+
+  <!--DelegatingFilterProxy将查找一个Bean的名字springSessionRepositoryFilter丢给一个过滤器。为每个请求调用DelegatingFilterProxy, springSessionRepositoryFilter将被调用-->  
+  <filter>
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+
+
+  <filter-mapping>
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+  
+  <session-config>  
+      <session-timeout>30</session-timeout>  
+  </session-config> 
+  
+  <!-- Spring session configuration. End -->
+  
+  
   <!-- Spring和mybatis的配置文件 -->  
   <context-param>  
       <param-name>contextConfigLocation</param-name>  
@@ -32,11 +57,7 @@
     <filter-name>encodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  
-  <!-- Spring监听器 -->  
-  <listener>  
-      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
-  </listener>  
+
   <!-- 防止Spring内存溢出监听器 -->  
   <listener>  
       <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>  
@@ -44,6 +65,7 @@
   
   
   <!-- 创建一个servlet，命名为mvc-dispatcher -->
+  
   <servlet>
     <servlet-name>SpringMVC</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -59,9 +81,19 @@
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
   </servlet>
+  
+  <!-- Spring session. springSessionRepositoryFilter bean 的初始化的配置文件  -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-session.xml</param-value>
+  </context-param>
+  
+  <!-- Spring监听器 -->  
+  <listener>  
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+  </listener> 
 
   <!-- FreeMarker 配置 -->
-
 
   <!-- 配置这个mvc-dispatcher的拦截请求，url-pattern为 / ，说明拦截所有请求 -->
   <servlet-mapping>
@@ -70,6 +102,7 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   
+
   <welcome-file-list>  
     <welcome-file>/index.jsp</welcome-file>  
   </welcome-file-list> 

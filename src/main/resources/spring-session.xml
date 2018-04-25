@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<context:annotation-config/>
+	
+	<!-- 创建名为springSessionRepositoryFilter 的Spring Bean，继承自Filter。
+        springSessionRepositoryFilter替换容器默认的HttpSession支持为Spring Session，
+        将Session实例存放在Redis中 -->
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+    </bean>
+
+    <!-- 使用LettuceConnectionFactory -->
+    <bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory">
+    </bean>
+
+</beans>

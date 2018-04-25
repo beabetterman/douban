@@ -30,7 +30,7 @@ public class RESTSampleController {
 		
 	
 		String return_value = "This is the form Information:";
-		String response_str = "Hi," + request.getAttribute("user_name")+"!";
+		String response_str = "Hi," + request.getParameter("user_name")+"!";
 		System.out.println(response_str);
 		return_value += response_str;
 //		Enumeration<String> attrs = request.getAttributeNames();
