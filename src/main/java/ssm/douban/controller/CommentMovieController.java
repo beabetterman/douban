@@ -46,7 +46,21 @@ public class CommentMovieController {
         System.out.println("showAllComment list size:" + commentMovieList.size());
 		return "comment_list";
 	}
-	
+
+	/*
+	 * Check the Spring Session & Redis framework work or not.
+	 * Show the server ip&port information and the session ID. 
+	 */
+	@RequestMapping("/showIndex")
+	public String showIndex(HttpServletRequest request,Model model) {
+		
+		String ip = request.getLocalAddr();
+		String port = String.valueOf(request.getLocalPort());
+		ip = ip + ":" + port;
+		request.setAttribute("ip", ip);
+		
+		return "session_check";
+	}
 	
 	
 	@RequestMapping(value = "/showCommentJson",

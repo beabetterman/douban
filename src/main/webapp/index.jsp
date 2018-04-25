@@ -4,6 +4,10 @@
 </head>
 <body>
 <h2>Hello World!</h2>
+<div>
+	<span>Server:&nbsp;</span><span><%=request.getServerName()+":"+request.getServerPort()%></span>&nbsp;<span>SessionID:&nbsp;</span><span><%=session.getId()%></span>
+</div>
+
 <div id="rest_post_api">
 	<form action="rest/rest_post_api" method="post">
 		<div><span>Name: </span><span></span><input type="text" name="user_name"/></div>
