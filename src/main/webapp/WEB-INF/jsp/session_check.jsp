@@ -10,10 +10,13 @@
 			<td>Session ID </td><td><%=session.getId()%></td>
 		</tr>
 		<tr>
-			<td>Server Real IP & Port</td><td><%=request.getAttribute("ip") %></td>
+			<td>Server Real IP & Port</td><td><%=request.getAttribute("server_ip") %></td>
 		</tr>
 		<tr>
-			<td>Nginx Infor</td><td><%=request.getServerName()+":"+request.getServerPort()%></td>
+			<td>Nginx IP:</td><td><%=request.getAttribute("proxy_ip") %></td>
+		</tr>
+		<tr>
+			<td>Your IP:</td><td><%=request.getAttribute("client_ip") %></td>
 		</tr>
 	</table>
 	

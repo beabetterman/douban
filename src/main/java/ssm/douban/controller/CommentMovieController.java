@@ -1,11 +1,13 @@
 package ssm.douban.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,11 +55,34 @@ public class CommentMovieController {
 	 */
 	@RequestMapping("/showIndex")
 	public String showIndex(HttpServletRequest request,Model model) {
+		InetAddress addr;
+		String server_ip = null;
+		try {
+			addr = InetAddress.getLocalHost();
+			server_ip=addr.getHostAddress();//获得本机IP      
+			
+			String address=addr.getHostName();//获得本机名称
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}       
+
+		if( server_ip == null) {
+			server_ip = "Unknown";
+		}
+		server_ip = server_ip + ":" + request.getLocalPort();
 		
-		String ip = request.getLocalAddr();
-		String port = String.valueOf(request.getLocalPort());
-		ip = ip + ":" + port;
-		request.setAttribute("ip", ip);
+		String proxy_ip = request.getRemoteAddr();
+		proxy_ip = proxy_ip + ":" + request.getRemotePort();
+		
+		// Need Nginx configuration support.
+		String client_ip = request.getHeader("X-Real-IP"); 
+		client_ip = client_ip + ":" + "Unknown";
+  
+		
+		request.setAttribute("server_ip", server_ip);
+		request.setAttribute("proxy_ip", proxy_ip);
+		request.setAttribute("client_ip", client_ip);
 		
 		return "session_check";
 	}
