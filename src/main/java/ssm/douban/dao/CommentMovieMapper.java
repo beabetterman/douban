@@ -2,78 +2,35 @@ package ssm.douban.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import ssm.douban.pojo.CommentMovie;
 import ssm.douban.pojo.CommentMovieExample;
 
 @Repository
-public class CommentMovieMapper implements ICommentMovieMapper {
+@Mapper
+public interface CommentMovieMapper {
+    long countByExample(CommentMovieExample example);
 
-	@Override
-	public long countByExample(CommentMovieExample example) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    int deleteByExample(CommentMovieExample example);
 
-	@Override
-	public int deleteByExample(CommentMovieExample example) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    int deleteByPrimaryKey(Integer id);
 
-	@Override
-	public int deleteByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    int insert(CommentMovie record);
 
-	@Override
-	public int insert(CommentMovie record) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    int insertSelective(CommentMovie record);
 
-	@Override
-	public int insertSelective(CommentMovie record) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    List<CommentMovie> selectByExample(CommentMovieExample example);
 
-	@Override
-	public List<CommentMovie> selectByExample(CommentMovieExample example) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    CommentMovie selectByPrimaryKey(Integer id);
 
-	@Override
-	public CommentMovie selectByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    int updateByExampleSelective(@Param("record") CommentMovie record, @Param("example") CommentMovieExample example);
 
-	@Override
-	public int updateByExampleSelective(CommentMovie record, CommentMovieExample example) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    int updateByExample(@Param("record") CommentMovie record, @Param("example") CommentMovieExample example);
 
-	@Override
-	public int updateByExample(CommentMovie record, CommentMovieExample example) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    int updateByPrimaryKeySelective(CommentMovie record);
 
-	@Override
-	public int updateByPrimaryKeySelective(CommentMovie record) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateByPrimaryKey(CommentMovie record) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+    int updateByPrimaryKey(CommentMovie record);
 }
