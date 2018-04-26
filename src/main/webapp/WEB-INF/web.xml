@@ -30,12 +30,13 @@
   <!-- Spring session configuration. End -->
   
   
-  <!-- Spring和mybatis的配置文件 -->  
+  <!-- Don't override the context-param tag. Please define all config files in one tag, separate by , or ;  Spring和mybatis的配置文件  -->  
+  <!-- 
   <context-param>  
       <param-name>contextConfigLocation</param-name>  
       <param-value>classpath:spring-mybatis.xml</param-value>  
   </context-param>  
-
+  -->
   <!-- 为了能够处理中文的post请求，再配置一个encodingFilter过滤器，将数据转换成utf-8编码，以避免post请求中文出现乱码情况 -->
   <filter>
     <filter-name>encodingFilter</filter-name>
@@ -85,7 +86,7 @@
   <!-- Spring session. springSessionRepositoryFilter bean 的初始化的配置文件  -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring-session.xml</param-value>
+    <param-value>classpath:spring-mybatis.xml,classpath:spring-session.xml</param-value>
   </context-param>
   
   <!-- Spring监听器 -->  
