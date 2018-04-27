@@ -1,3 +1,6 @@
+# Folders          
+target
+
+# Files
 *.class
 *.log
-/target/*
