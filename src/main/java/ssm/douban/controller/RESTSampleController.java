@@ -1,7 +1,5 @@
 package ssm.douban.controller;
 
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -55,6 +53,7 @@ public class RESTSampleController {
 	@ResponseBody
 	public Object rest_get_api(@RequestParam String infor, HttpServletRequest request) {
 		
+		logger.info("Get the param infor : "+infor);
 		return JSON.toJSONString("Get Client send information: "+infor);
 	}
 

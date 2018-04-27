@@ -9,18 +9,25 @@
 </div>
 
 <div id="rest_post_api">
+	<form action="comment/crud_test" method="get">
+		<div><span>Forward to &nbsp; : &nbsp;</span><span>INSERT, DELETE, UPDATE, QUERY</span></div>
+		<div><input type="submit" value="CRUD" /></div>
+		
+	</form>
+</div>
+
+<div id="rest_post_api">
 	<form action="rest/rest_post_api" method="post">
-		<div><span>Name: </span><span></span><input type="text" name="user_name"/></div>
-		<div><span>Password: </span><span><input type="text" name="password"/></div>
+		<div><span>Name: </span><span><input type="text" name="user_name"/></span></div>
+		<div><span>Password: </span><span><input type="text" name="password"/></span></div>
 		<div><input type="submit" value="POST" /></div>
 		
 	</form>
 </div>
 
 <div id="rest_get_api">
-	<form action="rest/rest_get_api?infor=123" method="post">
-		<div><span>Name: </span><span><input type="text" name="user_name_fake" value="FakeName"/></div>
-		<div><span>Password: </span><span><input type="text" name="password_fake" value="FakePsd"/></div>
+	<form action="rest/rest_get_api?infor=abc" method="get">
+		<div><span>Information: </span><span><input type="text" name="infor" value=""/></span></div>
 		<div><input type="submit" value="GET" /></div>
 	</form>
 </div>
