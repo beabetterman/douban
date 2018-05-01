@@ -17,11 +17,8 @@
 
     
     <!-- 配置mybatis相关 -->
-    <!-- 引入配置文件 -->
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:jdbc.properties" />
-    </bean>
+    <!-- 引入配置文件，在整个应用中多处使用引用资源时，一定要使用ignore-unresolvable="true" -->
+    <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true" />
 
     <!-- 2.数据库连接池 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">

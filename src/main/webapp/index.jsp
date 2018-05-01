@@ -8,10 +8,18 @@
 	<span>Server:&nbsp;</span><span><%=request.getServerName()+":"+request.getServerPort()%></span>&nbsp;<span>SessionID:&nbsp;</span><span><%=session.getId()%></span>
 </div>
 
-<div id="rest_post_api">
+<div>
 	<form action="comment/crud_test" method="get">
 		<div><span>Forward to &nbsp; : &nbsp;</span><span>INSERT, DELETE, UPDATE, QUERY</span></div>
 		<div><input type="submit" value="CRUD" /></div>
+		
+	</form>
+</div>
+
+<div>
+	<form action="rabbitmq/send_message" method="get">
+		<div><span>RabbitMQ message :</span><span><input type="text" name="message"/></span></div>
+		<div><input type="submit" value="SEND" /></div>
 		
 	</form>
 </div>

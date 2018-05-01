@@ -86,7 +86,7 @@
   <!-- Spring session. springSessionRepositoryFilter bean 的初始化的配置文件  -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring-mybatis.xml,classpath:spring-session.xml</param-value>
+    <param-value>classpath:spring-mybatis.xml,classpath:spring-session.xml,classpath:spring-rabbitmq.xml</param-value>
   </context-param>
   
   <!-- Spring监听器 -->  
